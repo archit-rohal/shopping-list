@@ -15,7 +15,7 @@ function checkState(check) {
 
 function displayItems() {
     const itemsFromStorage = getItemFromStorage();
-    itemsFromStorage.forEach((item) => addItemToDOM(item));
+    itemsFromStorage.forEach(item => addItemToDOM(item));
     let listCount = itemList.childElementCount;
     checkState(listCount);
 }
@@ -42,7 +42,9 @@ function addItemToDOM(item) {
     const button = createButton("remove-item btn-link text-red");
     li.appendChild(button);
     itemList.appendChild(li);
+
 }
+
 
 function createButton(classes) {
     const button = document.createElement("button");
@@ -63,32 +65,33 @@ function addItemToStorage(item) {
     // console.log(typeof (itemsFromStorage));
     itemsFromStorage.push(item);
 
-    localStorage.setItem("items", JSON.stringify(itemsFromStorage));
+    localStorage.setItem('items', JSON.stringify(itemsFromStorage));
 }
 
 function getItemFromStorage() {
     let itemsFromStorage;
-    if (localStorage.getItem("items") === null) {
+    if (localStorage.getItem('items') === null) {
         itemsFromStorage = [];
     } else {
-        itemsFromStorage = JSON.parse(localStorage.getItem("items"));
+        itemsFromStorage = JSON.parse(localStorage.getItem('items'));
     }
     return itemsFromStorage;
+
 }
 
 const onDeleteItem = (e) => {
     // let foo = prompt("Are you sure? (y/n)").toLowerCase();
     // console.log(e.target.parentElement.textContent);
-    console.log(e.target.parentElement.parentElement);
+    console.log(e.target.parentElement.parentElement)
     deleteItemFromDOM(e);
     deleteItemFromStorage(e.target.parentElement.parentElement.textContent);
 };
 function deleteItemFromStorage(foo) {
     const itemsFromStorage = getItemFromStorage();
     // console.log(itemsFromStorage);
-    const updatedItems = itemsFromStorage.filter((item) => item !== foo);
+    const updatedItems = itemsFromStorage.filter(item => item !== foo);
     // console.log(updatedItems);
-    localStorage.setItem("items", JSON.stringify(updatedItems));
+    localStorage.setItem('items', JSON.stringify(updatedItems));
 
     // const itemsFromStorage = getItemFromStorage();
     // console.log(typeof (itemsFromStorage));
@@ -104,6 +107,7 @@ function deleteItemFromStorage(foo) {
     // localStorage.removeItem('items', JSON.stringify(foo));
 }
 
+
 function deleteItemFromDOM(e) {
     if (e.target.classList.contains("fa-xmark")) {
         // console.log(e.target);
@@ -117,6 +121,7 @@ function deleteItemFromDOM(e) {
             return;
         }
     }
+
 }
 
 function onRemoveAll() {
@@ -124,10 +129,10 @@ function onRemoveAll() {
     removeAllFromStorage();
 }
 function removeAllFromStorage() {
-    const itemsFromStorage = getItemFromStorage();
+    // const itemsFromStorage = getItemFromStorage();
     const updatedItems = [];
-    console.log(itemsFromStorage);
-    localStorage.setItem("items", updatedItems);
+    // console.log(itemsFromStorage);
+    localStorage.setItem('items', JSON.stringify(updatedItems));
 }
 function removeAllFromDOM() {
     const lis = document.querySelectorAll("li");
@@ -156,7 +161,8 @@ function filterItems(e) {
     clearAll.addEventListener("click", onRemoveAll); // Clearing all items
     checkState(itemList.childElementCount); // Checking state
     filter.addEventListener("input", filterItems); // Filtering items
-    itemForm.addEventListener("submit", onAddItemSubmit); // Submitting form
+    itemForm.addEventListener("submit", onAddItemSubmit);  // Submitting form
     itemList.addEventListener("click", onDeleteItem); // Deleting list items
-    document.addEventListener("DOMContentLoaded", displayItems);
+    document.addEventListener('DOMContentLoaded', displayItems);
 })();
+
